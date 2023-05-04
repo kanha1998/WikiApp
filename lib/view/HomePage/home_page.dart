@@ -28,7 +28,9 @@ class HomePage extends StatelessWidget {
                   hintText: "Search...",
                   suffixIcon: InkWell(
                     child: const Icon(Icons.search, color: Colors.black),
-                    onTap: () {},
+                    onTap: () {
+
+                    },
                   )),
             ),
           ),
