@@ -11,17 +11,15 @@ import 'package:wiki/view/DetailsPage/detail_page_viewModel.dart';
 
 late InAppWebViewController controller;
 class DetailsPage extends StatelessWidget {
-  const DetailsPage({Key? key,required this.pageId}) : super(key: key);
-  final int pageId;
+  const DetailsPage({Key? key, this.pageId}) : super(key: key);
+  final int? pageId;
 
   @override
   Widget build(BuildContext context) {
 
     return Consumer(builder: (context, ref, child)
     {
-      final data = ref
-          .watch(detailsViewModelProvider)
-          .extract;
+      final data = ref.watch(detailsViewModelProvider).extract;
       return Scaffold(
           body: InAppWebView(
             initialData: InAppWebViewInitialData(data: data??""),

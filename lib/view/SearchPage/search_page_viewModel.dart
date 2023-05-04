@@ -22,9 +22,10 @@ class SearchPageViewModel extends StateNotifier<WikiSearchTermResult> {
     });
     return searchTermResult;
   }
+  void clearSearch(WidgetRef ref)
+  {
+    state = WikiSearchTermResult();
+
+  }
 }
 
-
-/*
-https://en.wikipedia.org/w/api.php?action=query&format=json&pageids=9845&prop=extracts|description&origin=*
- */

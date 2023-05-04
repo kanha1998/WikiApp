@@ -1,3 +1,5 @@
+import 'package:wiki/model/wiki_summary_response.dart';
+
 class WikiSearchTermResult {
   bool? batchcomplete;
   Query? query;
@@ -83,14 +85,16 @@ class Pages {
   int? index;
   Thumbnail? thumbnail;
   Terms? terms;
-
+  String? extract;
   Pages(
       {this.pageid,
       this.ns,
       this.title,
       this.index,
       this.thumbnail,
-      this.terms});
+      this.terms,
+      this.extract
+      });
 
   Pages.fromJson(Map<String, dynamic> json) {
     pageid = json['pageid'];
@@ -101,6 +105,7 @@ class Pages {
         ? new Thumbnail.fromJson(json['thumbnail'])
         : null;
     terms = json['terms'] != null ? new Terms.fromJson(json['terms']) : null;
+    extract =json['extract'];
   }
 
   Map<String, dynamic> toJson() {
@@ -115,6 +120,7 @@ class Pages {
     if (terms != null) {
       data['terms'] = terms!.toJson();
     }
+    data['extract']=extract;
     return data;
   }
 }

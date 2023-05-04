@@ -1,11 +1,17 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wiki/widgets/history_suggestion_item.dart';
 
+import '../../model/wiki_search_term_result.dart';
 import '../../widgets/debouncer.dart';
+import '../../widgets/suggestion_item.dart';
+import 'home_page_viewModel.dart';
 
 
-final _searchTextEditing = TextEditingController();
+final homesearchTextEditing = TextEditingController();
 
 final _debouncer = Debouncer(milliseconds: 500);
 
@@ -14,24 +20,34 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Consumer(builder: (context, ref, child) {
+      final data = ref.watch(HomePageViewModelProvider.notifier).recentSearched;
+      print(data.toList().toString());
     return Scaffold(
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: TextField(
-              controller: _searchTextEditing,
-              onChanged: (val) async {
-
+            child: GestureDetector(
+              onTap: (){
+               // print("er");
               },
-              decoration: InputDecoration(
-                  hintText: "Search...",
-                  suffixIcon: InkWell(
-                    child: const Icon(Icons.search, color: Colors.black),
-                    onTap: () {
+              child: TextField(
+                controller: homesearchTextEditing,
+                  onChanged: (val) async {
+                  context.go("/search");
+                  homesearchTextEditing.clear();
 
-                    },
-                  )),
+                },
+                decoration: InputDecoration(
+                    hintText: "Search...",
+                    suffixIcon: InkWell(
+                      child: const Icon(Icons.search, color: Colors.black),
+                      onTap: () {
+
+                      },
+                    )),
+              ),
             ),
           ),
 
@@ -39,15 +55,18 @@ class HomePage extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.9,
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: data?.pages?.length ?? 0,
+                itemCount: data.length ,
                 itemBuilder: (context, index) {
-                  return SuggestionItem(page: data?.pages?[index] ?? Pages(),context: context,);
+                  return HistorySuggestionItem(page: data[index] ,context: context,);
                 }),
           )
+
+
 
         ],
       ),
 
     );
+  });
   }
 }

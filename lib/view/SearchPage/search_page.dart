@@ -11,7 +11,7 @@ import '../../widgets/debouncer.dart';
 import 'search_page_viewModel.dart';
 
 
-final _searchTextEditing = TextEditingController();
+final searchTextEditing = TextEditingController();
 final _debouncer = Debouncer(milliseconds: 500);
 
 class SearchPageView extends StatelessWidget {
@@ -23,13 +23,12 @@ class SearchPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final data = ref.watch(SearchPageViewModelProvider).query;
-      //   final result = ref.watch(homeViewFutureProvider(ref));
       return Scaffold(
           body: Column(children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: TextField(
-            controller: _searchTextEditing,
+            controller: searchTextEditing,
             onChanged: (val) async {
 
               _debouncer.run(() async {

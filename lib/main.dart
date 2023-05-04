@@ -6,6 +6,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:wiki/locator_init.dart';
+import 'package:wiki/router.dart';
+import 'package:wiki/view/HomePage/home_page.dart';
 import 'package:wiki/view/SearchPage/search_page.dart';
 
 
@@ -31,18 +33,17 @@ void main()  async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: router,
           debugShowCheckedModeBanner: false,
           title: 'Wiki App',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home:  SearchPageView(
-          )),
+          ),
     );
   }
 }

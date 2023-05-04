@@ -5,11 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:wiki/locator_init.dart';
 import 'package:wiki/model/search_Model.dart';
+import 'package:wiki/model/wiki_summary_response.dart';
 import 'package:wiki/view/DetailsPage/detail_page_viewModel.dart';
 import 'package:wiki/view/DetailsPage/details_page.dart';
+import 'package:wiki/view/SearchPage/search_page_viewModel.dart';
 
 import '../model/wiki_search_term_result.dart';
 import '../service/local_storage_service.dart';
+import '../view/HomePage/home_page_viewModel.dart';
+import '../view/SearchPage/search_page.dart';
 
 class SuggestionItem extends StatelessWidget {
   const SuggestionItem({Key? key, required this.page,required this.context}) : super(key: key);
@@ -22,12 +26,19 @@ class SuggestionItem extends StatelessWidget {
         return InkWell(
             onTap: ()  async{
 
-             await  ref.read(detailsViewModelProvider.notifier).getWikipediaSummary(ref,page.pageid??0);
+            WikipediaSummaryData summary=  await  ref.read(detailsViewModelProvider.notifier).getWikipediaSummary(ref,page.pageid??0);
 
-             ref.read(LocalServiceProvider).addItem(page);
+              page.extract=summary.extract;
+             print(page.toJson().toString());
+             ref.read(HomePageViewModelProvider.notifier).addRecentItem(ref, page);
+             ref.read(SearchPageViewModelProvider.notifier).clearSearch(ref);
+
               Navigator.push(context,  MaterialPageRoute (
                 builder: (BuildContext context) => DetailsPage(pageId: page!.pageid??0,),
               ));
+
+             searchTextEditing.clear();
+
 
 
             },
@@ -44,32 +55,6 @@ class SuggestionItem extends StatelessWidget {
             ));
       }
     );
-    /*
-      Row(
-        children: [
-          Column(
-            children: [
-              Text(page.title.toString()),
-              FittedBox(child: Text(page.terms?.description?.first.toString()??"",maxLines: 4,)),
-            ],
-          ),
-          const Spacer(),
-          if(page.thumbnail!=null) Expanded(
-            child: CachedNetworkImage(
-              placeholder: (context, url) =>
-              const CircularProgressIndicator(),
-              imageUrl: page.thumbnail?.source??"",
-            ),
-          ),
-          SizedBox(width: 20,)
 
-        ],
-      ),
-
-
-
-    );
-
-     */
   }
 }

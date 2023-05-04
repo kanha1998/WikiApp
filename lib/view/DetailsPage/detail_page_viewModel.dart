@@ -22,4 +22,5 @@ class DetailsPageViewModel extends StateNotifier<WikipediaSummaryData>
     state =wikipediaSummaryData;
     return wikipediaSummaryData;
   }
+
 }
