@@ -1,16 +1,32 @@
-# wiki
 
-A new Flutter project.
 
-## Getting Started
+# WikiPedia App
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Features implemented:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ 1. User can Search terms and see the result
+ 2. Clicking on each item its open its correspoding screens
+ 3. Each Search result are saved which works even in offline mode.
+
+ Screens:
+
+
+
+<img src='screenshot/wikiHome.png' width='300'>
+
+search with history results
+
+<img src='screenshot/wikiSearch.png' width='300'>
+
+search terms
+
+<img src='screenshot/wikiDetails.png' width='300'>
+
+Details page
+
+
+
+
+
