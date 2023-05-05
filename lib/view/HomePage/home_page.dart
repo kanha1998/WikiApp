@@ -22,48 +22,56 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final data = ref.watch(HomePageViewModelProvider.notifier).recentSearched;
-      print(data.toList().toString());
+
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: GestureDetector(
-              onTap: (){
-               // print("er");
-              },
-              child: TextField(
-                controller: homesearchTextEditing,
-                  onChanged: (val) async {
-                  context.go("/search");
-                  homesearchTextEditing.clear();
-
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Search",style: TextStyle(fontSize: 18),),
+             const SizedBox(height: 10,),
+              GestureDetector(
+                onTap: (){
+                 // print("er");
                 },
-                decoration: InputDecoration(
-                    hintText: "Search...",
-                    suffixIcon: InkWell(
-                      child: const Icon(Icons.search, color: Colors.black),
-                      onTap: () {
+                child: TextField(
+                  controller: homesearchTextEditing,
+                    onChanged: (val) async {
+                    context.go("/search");
+                    homesearchTextEditing.clear();
 
-                      },
-                    )),
+                  },
+                  decoration: InputDecoration(
+                      hintText: "Search Wikipedia",
+                      prefixIcon: InkWell(
+                        child: const Icon(Icons.search, color: Colors.black),
+                        onTap: () {
+
+                        },
+                      )),
+                ),
               ),
-            ),
+              const SizedBox(height: 10,),
+              const Text("History",style: TextStyle(fontSize: 18),),
+              const SizedBox(height: 10,),
+
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.9,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: data.length ,
+                    itemBuilder: (context, index) {
+                      return HistorySuggestionItem(page: data[index] ,context: context,);
+                    }),
+              )
+
+
+
+            ],
           ),
-
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.9,
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: data.length ,
-                itemBuilder: (context, index) {
-                  return HistorySuggestionItem(page: data[index] ,context: context,);
-                }),
-          )
-
-
-
-        ],
+        ),
       ),
 
     );

@@ -39,8 +39,6 @@ class SuggestionItem extends StatelessWidget {
 
              searchTextEditing.clear();
 
-
-
             },
             child: ListTile(
               trailing: (page.thumbnail != null)

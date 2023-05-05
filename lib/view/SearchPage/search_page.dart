@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:wiki/locator_init.dart';
 import 'package:wiki/model/search_Model.dart';
@@ -38,11 +39,15 @@ class SearchPageView extends StatelessWidget {
               });
             },
             decoration: InputDecoration(
-                hintText: "Search...",
-                suffixIcon: InkWell(
-                  child: const Icon(Icons.search, color: Colors.black),
-                  onTap: () {},
-                )),
+                hintText: "Search Wikipedia",
+               prefixIcon: InkWell(
+                 onTap: (){
+                   context.go('/');
+
+                 },
+                 child: const Icon(Icons.arrow_back, color: Colors.black),
+               )
+               ),
           ),
         ),
 

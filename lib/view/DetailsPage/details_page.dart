@@ -21,6 +21,9 @@ class DetailsPage extends StatelessWidget {
     {
       final data = ref.watch(detailsViewModelProvider).extract;
       return Scaffold(
+        appBar: AppBar(
+          title: Text("Wikipedia")
+        ),
           body: InAppWebView(
             initialData: InAppWebViewInitialData(data: data??""),
             initialSettings: InAppWebViewSettings(
